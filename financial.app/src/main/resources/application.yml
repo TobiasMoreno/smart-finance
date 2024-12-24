@@ -1,0 +1,63 @@
+server:
+  port: 8080 # Puerto donde se ejecutará el backend
+
+spring:
+  application:
+    name: financial-app
+  datasource:
+    url: jdbc:mysql://localhost:3306/financial_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: your_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Opciones: validate | update | create | create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your_email@gmail.com
+    password: your_email_password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  profiles:
+    active: dev
+
+#Configuración de Swagger
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  group-configurations:
+    default:
+      paths-to-match: /api/**
+
+# Configuración de WebSockets
+websocket:
+  message-broker:
+    prefix: /topic
+  application-destination-prefixes: /app
+  allowed-origins: "*"
+
+logging:
+  level:
+    root: WARN
+    org.springframework: debug
+
+# Configuración para tareas programadas
+task:
+  scheduling:
+    pool:
+      size: 5
+
+# Configuración personalizada
+alerts:
+  threshold-check-interval: 60000 # Intervalo de chequeo en milisegundos
+
