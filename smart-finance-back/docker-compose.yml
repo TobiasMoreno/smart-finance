@@ -1,37 +1,37 @@
 services:
   financial-app:
     container_name: financial-app-container
-    build: ./financial.app
+    build: ./financial-app
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
     ports:
       - "8080:8080"
     depends_on:
       database:
         condition: service_healthy
     networks:
-      - smart-finance-network
-
-
+      - financial-network
 
   database:
     image: mysql:latest
-    container_name: mysql-container
+    container_name: financial-mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: shared_database
+      MYSQL_DATABASE: financial_db_prod
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - smart-finance-network
+      - financial-network
     healthcheck:
-      test: [ "CMD-SHELL", "mysqladmin ping -h localhost" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1" ]
       interval: 10s
       retries: 5
       timeout: 5s
 
 networks:
-  smart-finance-network:
+  financial-network:
     driver: bridge
 
 volumes:

@@ -1,27 +1,32 @@
 package tobias.moreno.financial.app.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "alerts")
+@Table(name = "notifications")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Alert {
+public class NotificationEntity extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, name = "price_threshold")
-	private float priceThreshold;
-	private String symbol;
-	private boolean active;
+	private String message;
+
+	@Column(name = "sent_at")
+	private LocalDateTime sentAt;
+
+	private boolean sent;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private UserEntity userEntity;
 }
