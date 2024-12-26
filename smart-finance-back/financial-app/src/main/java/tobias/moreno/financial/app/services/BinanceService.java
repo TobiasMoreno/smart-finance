@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class BinanceService implements IBinanceService {
-	private static final String BINANCE_API_KEY = "RF2NpYOQDaCM9lCzJNAtHDwPvZDEymm83v9yin7olsjhNRaDN0YsQJ02bkvKRh0d";
+	private static final String BINANCE_API_KEY = "Secret key";
 	private static final String BINANCE_API_URL = "https://api.binance.com/api/v3";
 
 	private final RestTemplate restTemplate;
